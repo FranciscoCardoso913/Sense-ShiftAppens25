@@ -1,0 +1,89 @@
+import 'package:flutter/material.dart';
+
+const Color primary = Color(0x264653);
+const Color secondary= Color(0x17C3B2);
+const Color ternary  = Color(0xFFCB77);
+const Color quaternary = Color(0xFEF9EF);
+const Color fith=Color(0xFE6D73);
+const Color error=Color(0xD44148);
+const Color textcolour= Color(0xff000000);
+const Color iconcolor=Color(0xABABAB);
+
+const textTheme = TextTheme(
+  displayLarge: TextStyle(
+    fontSize: 40,
+    fontWeight: FontWeight.w400,
+    color: textcolour,
+  ),
+  displayMedium: TextStyle(
+    fontSize: 40,
+    fontWeight: FontWeight.w400,
+    color: quaternary,
+  ),
+  displaySmall: TextStyle(
+    fontSize: 28,
+    fontWeight: FontWeight.w500,
+    color:textcolour,
+  ),
+  bodyLarge: TextStyle(
+    fontSize: 28,
+    fontWeight: FontWeight.w400,
+    color: quaternary,
+  ),
+  bodyMedium: TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: quaternary,
+  ),
+  bodySmall: TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: textcolour,
+  ),
+  labelLarge: TextStyle(
+    fontSize: 9,
+    fontWeight: FontWeight.w400,
+    color: quaternary,
+  ),
+  labelMedium: TextStyle(
+    fontSize: 9,
+    fontWeight: FontWeight.w400,
+    color:textcolour,
+  ),
+  labelSmall: TextStyle(
+    fontSize: 5,
+    fontWeight: FontWeight.w400,
+    color: quaternary,
+  ),
+);
+
+final ThemeData lightTheme = ThemeData(
+  useMaterial3: true,
+  textTheme: textTheme,
+  colorScheme: ColorScheme.fromSeed(
+    seedColor: primary,
+    primary: primary,
+    onPrimary: ternary,
+    secondary: secondary,
+    onSecondary: textColour,
+    surface: ternary,
+    onSurface: textColour,
+    error: error,
+    onError: ternary,
+    tertiary: fith,
+    onTertiary: textcolour,
+    brightness: Brightness.light,
+  ),
+  primaryColor: primary,
+  cardTheme: CardTheme(
+    margin: EdgeInsets.all(4),
+    color: ternary,
+  ),
+  dividerColor: textcolour.withValues(alpha:0.4), 
+  hintColor: textcolour.withValues(alpha: 0.6),
+  indicatorColor: secondary,
+  secondaryHeaderColor: quaternary,
+  focusColor: fith,
+  shadowColor: textcolour.withValues(alpha: .3),
+  iconTheme: IconThemeData(color: iconcolor),
+);

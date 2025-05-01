@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sense/MainPage.dart';
+import 'package:sense/UI/MainPage.dart';
 
 void main() {
   runApp(const MyApp());
