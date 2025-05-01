@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title});
   final String title;
