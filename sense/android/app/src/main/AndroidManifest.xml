@@ -2,7 +2,7 @@
     <application
         android:label="sense"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/sense_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"
