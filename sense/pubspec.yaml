@@ -66,6 +66,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/Logo circular.png
+    - assets/logo.png
   
 
 flutter_native_splash:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title});
   final String title;
@@ -19,7 +20,6 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-   
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
@@ -27,15 +27,18 @@ class _MainPageState extends State<MainPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(
-              flex: 3,
+              flex: 2,
               child: Align(
-    alignment: Alignment.center,
-    child: Image.asset('assets/logo.png')
-  ),
+                alignment: Alignment.bottomCenter,
+                child: Image.asset('assets/logo.png'),
+              ),
             ),
-              Expanded(
-              flex: 6,
-              child: const Text('You have pushed the button this many times:'),
+            Expanded(
+              flex: 7,
+              child: Align(
+                alignment: Alignment.center,
+                child:TextButton(onPressed: () {}, child: Text("Start")),
+              ),
             ),
             Expanded(
               flex: 1,
@@ -46,9 +49,17 @@ class _MainPageState extends State<MainPage> {
                     mainAxisAlignment:
                         MainAxisAlignment.center, // Centers the buttons
                     children: [
-                      IconButton(onPressed: () {}, icon: Icon(Icons.volunteer_activism_outlined), iconSize: 30,),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.volunteer_activism_outlined),
+                        iconSize: 30,
+                      ),
                       SizedBox(width: 30), // Adds space between the buttons
-                      IconButton(onPressed: () {}, icon: Icon(Icons.help_outline_rounded), iconSize: 30,),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.help_outline_rounded),
+                        iconSize: 30,
+                      ),
                     ],
                   ),
                 ],
@@ -56,11 +67,6 @@ class _MainPageState extends State<MainPage> {
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
