@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title});
   final String title;
@@ -43,7 +44,7 @@ class _MainPageState extends State<MainPage> {
               child: Align(
                 alignment: Alignment.topCenter,
                 child: SizedBox(
-                  width: 250,
+                  width: 275,
                   child: Text(
                     "Turn around to find the location of the sound",
                     textAlign: TextAlign.center,
@@ -62,17 +63,9 @@ class _MainPageState extends State<MainPage> {
                     mainAxisAlignment:
                         MainAxisAlignment.center, // Centers the buttons
                     children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.volunteer_activism_outlined),
-                        iconSize: 30,
-                      ),
+                      IconButton(onPressed: () {}, icon: Icon(Icons.volunteer_activism_outlined), iconSize: 30,),
                       SizedBox(width: 30), // Adds space between the buttons
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.help_outline_rounded),
-                        iconSize: 30,
-                      ),
+                      IconButton(onPressed: () {}, icon: Icon(Icons.help_outline_rounded), iconSize: 30,),
                     ],
                   ),
                 ],

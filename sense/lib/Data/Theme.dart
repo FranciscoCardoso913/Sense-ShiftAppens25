@@ -28,7 +28,7 @@ const textTheme = TextTheme(
   ),
   bodyLarge: TextStyle(
     fontFamily: 'Poppins-SemiBoldr',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: FontWeight.w500,
     color: textcolour,
   ),
