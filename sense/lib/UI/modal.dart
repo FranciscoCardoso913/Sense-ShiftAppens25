@@ -38,6 +38,7 @@ class _CustomModalState extends State<CustomModal> {
                 ),
               ),
             ),
+            Center(child: Image.asset('assets/Donations.png')),
             Align(
               alignment: Alignment.center,
               child: Text(

@@ -14,6 +14,7 @@ const textTheme = TextTheme(
   displayLarge: TextStyle(
     fontSize: 40,
     fontWeight: FontWeight.w400,
+
     color: textcolour,
   ),
   displayMedium: TextStyle(
