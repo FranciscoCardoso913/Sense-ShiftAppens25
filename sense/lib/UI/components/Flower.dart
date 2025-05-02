@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pulsator/pulsator.dart';
+import 'package:sense/UI/components/Indicators.dart';
 import 'dart:math';
 import '../../Data/Theme.dart';
 import 'Petal.dart';
@@ -25,6 +26,7 @@ class _FlowerButtonState extends State<FlowerButton> {
   String buttonText = 'Start';
   bool _shouldPulsate = false;
   int _pulsatorKey = 0;
+  bool _indicators = false;
 
   final List<Color> colors = [fith, primary, ternary, secondary];
   late final List<GlobalKey<PetalState>> petalKeys;
@@ -45,6 +47,7 @@ class _FlowerButtonState extends State<FlowerButton> {
 
   Future<void> _handlePress() async {
     setState(() {
+      if(phase == 1) _indicators=true;
       _shouldPulsate = true;
       _pulsatorKey++;
     });
@@ -64,7 +67,7 @@ class _FlowerButtonState extends State<FlowerButton> {
         });
       }
     });}
-    
+
     setState(() {
       phase++;
       if (phase >= widget.phases.length) phase = 0;
@@ -82,6 +85,8 @@ class _FlowerButtonState extends State<FlowerButton> {
         child: Stack(
           alignment: Alignment.center,
           children: [
+            
+            if(_indicators)Indicators(),
             // Petals
             for (int i = 0; i < petalCount; i++)
               Transform.rotate(
@@ -123,6 +128,7 @@ class _FlowerButtonState extends State<FlowerButton> {
               ),
               child: Text(buttonText),
             ),
+            
           ],
         ),
       ),
