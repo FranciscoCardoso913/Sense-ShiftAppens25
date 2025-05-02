@@ -35,8 +35,20 @@
 # Project Overview
 
 <h4 align="center">
-  A different way to listen 
+  Sense a different way to listen 
 </h4>
+
+## Problem
+
+Deaf individuals face significant challenges in perceiving the surrounding sound environment, which can compromise their safety and limit their autonomy in daily situations. Sounds such as car horns, barking dogs, or alarms can represent dangers or simply provide relevant context, but they often go unnoticed by those who cannot hear. There is therefore an urgent need for accessible tools that help translate sounds into clear, real-time visual information.
+## Solution
+
+Our solution is Sense, a mobile app that detects sounds in real time, identifies the most relevant one based on intensity, and displays it on the screen along with the direction from which it originates. The interface is simple, accessible, and intuitive, allowing users to quickly understand if a car is approaching, a dog is barking, or another important sound event is happening nearby. This tool promotes inclusion, spatial awareness, and the safety of deaf individuals, being completely free and designed for daily use.
+## Technologies Used
+
+- Flutter – An open-source framework from Google for building mobile, web, and desktop applications from a single codebase, enabling the creation of modern and responsive interfaces.
+
+- Google Teachable Machine – A machine learning tool by Google that allows training AI models in a simple and visual way; in this case, used to identify sounds in real time.
 
 
 # The Team
