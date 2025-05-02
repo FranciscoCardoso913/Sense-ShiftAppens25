@@ -6,10 +6,11 @@ const Color ternary  = Color(0xffFFCB77);
 const Color quaternary = Color(0xffFEF9EF);
 const Color fith=Color(0xffFE6D73);
 const Color error=Color(0xffD44148);
-const Color textcolour= Color(0xff000000);//FEF9EF
+const Color textcolour= primary;
 const Color iconcolor=Color(0xffABABAB);
 
 const textTheme = TextTheme(
+  
   displayLarge: TextStyle(
     fontSize: 40,
     fontWeight: FontWeight.w400,
@@ -18,7 +19,7 @@ const textTheme = TextTheme(
   displayMedium: TextStyle(
     fontSize: 40,
     fontWeight: FontWeight.w400,
-    color: quaternary,
+    color: textcolour,
   ),
   displaySmall: TextStyle(
     fontSize: 28,
@@ -26,14 +27,15 @@ const textTheme = TextTheme(
     color:textcolour,
   ),
   bodyLarge: TextStyle(
-    fontSize: 28,
-    fontWeight: FontWeight.w400,
-    color: quaternary,
+    fontFamily: 'Poppins-SemiBoldr',
+    fontSize: 20,
+    fontWeight: FontWeight.w500,
+    color: textcolour,
   ),
   bodyMedium: TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
-    color: quaternary,
+    color: textcolour,
   ),
   bodySmall: TextStyle(
     fontSize: 12,
@@ -58,6 +60,7 @@ const textTheme = TextTheme(
 );
 
 final ThemeData lightTheme = ThemeData(
+  fontFamily: 'Poppins',
   useMaterial3: true,
   textTheme: textTheme,
   colorScheme: ColorScheme.fromSeed(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title});
   final String title;
@@ -34,10 +33,25 @@ class _MainPageState extends State<MainPage> {
               ),
             ),
             Expanded(
-              flex: 7,
+              flex: 5,
               child: Align(
                 alignment: Alignment.center,
-                child:TextButton(onPressed: () {}, child: Text("Start")),
+                child: TextButton(onPressed: () {}, child: Text("Start")),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: SizedBox(
+                  width: 250,
+                  child: Text(
+                    "Turn around to find the location of the sound",
+                    textAlign: TextAlign.center,
+                    softWrap: true,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                ),
               ),
             ),
             Expanded(
