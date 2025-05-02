@@ -71,6 +71,18 @@ class _CustomModalState extends State<CustomModal> {
             ),
             Align(
               alignment: Alignment.center,
+              child: FilledButton(
+                onPressed: () => (),
+                child: Text(
+                  "Donate",
+                  style: TextTheme.of(
+                    context,
+                  ).bodySmall?.copyWith(fontFamily: "Poppins"),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.center,
               child: Text(
                 "And a special thanks to the organizations bellow for sponsoring this app!",
                 style: TextTheme.of(
@@ -79,16 +91,19 @@ class _CustomModalState extends State<CustomModal> {
               ),
             ),
             if (_showBottomBar)
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Container(
-              height: 4,
-              width: 6,
-              color:  Theme.of(context).secondaryHeaderColor, // Customize as needed
-            ),
-          ),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: Container(
+                  height: 4,
+                  width: 6,
+                  color:
+                      Theme.of(
+                        context,
+                      ).secondaryHeaderColor, // Customize as needed
+                ),
+              ),
           ],
         ),
       ),

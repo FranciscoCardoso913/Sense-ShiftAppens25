@@ -38,9 +38,9 @@ const textTheme = TextTheme(
     color: textcolour,
   ),
   bodySmall: TextStyle(
-    fontSize: 12,
+    fontSize: 16,
     fontWeight: FontWeight.w400,
-    color: textcolour,
+    color: quaternary,
   ),
   labelLarge: TextStyle(
     fontSize: 9,
