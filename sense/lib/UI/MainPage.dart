@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'components/FlowerSection.dart';
 import 'package:sense/UI/modal.dart';
+import 'package:sense/UI/HelpModal.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title});
@@ -50,7 +51,12 @@ class _MainPageState extends State<MainPage> {
                       ),
                       SizedBox(width: 30), // Adds space between the buttons
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => HelpModal(),
+                          );
+                        },
                         icon: Icon(Icons.help_outline_rounded),
                         iconSize: 30,
                       ),

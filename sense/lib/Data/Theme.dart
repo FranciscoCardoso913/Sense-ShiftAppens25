@@ -30,7 +30,7 @@ const textTheme = TextTheme(
     color: textcolour,
   ),
   bodyLarge: TextStyle(
-    fontFamily: 'Poppins-SemiBoldr',
+    fontFamily: 'Poppins-SemiBold',
     fontSize: 18,
     fontWeight: FontWeight.w500,
     color: textcolour,

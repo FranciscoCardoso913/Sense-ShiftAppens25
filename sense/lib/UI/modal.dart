@@ -19,7 +19,7 @@ class _CustomModalState extends State<CustomModal> {
     return Dialog(
       backgroundColor: Theme.of(context).secondaryHeaderColor,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderRadius: BorderRadius.all(Radius.circular(20)),
         side: BorderSide(color: Theme.of(context).colorScheme.primary),
       ),
 
@@ -86,19 +86,22 @@ class _CustomModalState extends State<CustomModal> {
                   onPressed:
                       () => {
                         Navigator.pop(context),
-                        showDialog(context: context, builder: (BuildContext context) {
-                          return AlertDialog(
-                          title: Text(
-                            "Your donation was submitted sucessfully",
-                            style: TextTheme.of(context).bodyLarge?.copyWith(
-                              fontFamily: "Poppins",
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                          ),
-                        );
-                        }
-                        )
-                       
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text(
+                                "Your donation was submitted sucessfully",
+                                style: TextTheme.of(
+                                  context,
+                                ).bodyLarge?.copyWith(
+                                  fontFamily: "Poppins",
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       },
                   child: Text(
                     "Donate",

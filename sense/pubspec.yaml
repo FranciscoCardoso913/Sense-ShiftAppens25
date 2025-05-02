@@ -69,6 +69,15 @@ flutter:
     - assets/logo.png
     - assets/Donations.png
     - assets/logo-niaefeup.png
+    - assets/Help.png
+    - assets/Listen.png
+    - assets/Locate.png
+    - assets/help_modal/1st_row.png
+    - assets/help_modal/2nd_row.png
+    - assets/help_modal/3rd_row.png
+    - assets/help_modal/4th_row.png
+    - assets/help_modal/5th_row.png
+    - assets/help_modal/6th_row.png
 
   fonts:
     - family: Poppins
