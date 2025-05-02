@@ -24,7 +24,7 @@ const textTheme = TextTheme(
   displaySmall: TextStyle(
     fontSize: 28,
     fontWeight: FontWeight.w500,
-    color:textcolour,
+    color: textcolour,
   ),
   bodyLarge: TextStyle(
     fontFamily: 'Poppins-SemiBoldr',
@@ -33,7 +33,7 @@ const textTheme = TextTheme(
     color: textcolour,
   ),
   bodyMedium: TextStyle(
-    fontSize: 12,
+    fontSize: 16,
     fontWeight: FontWeight.w400,
     color: textcolour,
   ),
@@ -50,7 +50,7 @@ const textTheme = TextTheme(
   labelMedium: TextStyle(
     fontSize: 9,
     fontWeight: FontWeight.w400,
-    color:textcolour,
+    color: textcolour,
   ),
   labelSmall: TextStyle(
     fontSize: 5,
