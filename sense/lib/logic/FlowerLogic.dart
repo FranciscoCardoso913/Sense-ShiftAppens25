@@ -8,7 +8,9 @@ typedef PhaseFunction = Future<void> Function(List<GlobalKey<PetalState>> petals
 
 
 List<PhaseFunction> flowerPhases = [
+  
    (List<GlobalKey<PetalState>> petals, void Function(String) updateText, void Function(int start, int end) setDirection,void Function(Widget?, Widget?)callBack) async {
+     callBack(Text("") , Text("") );
     for (int i = 0; i < petals.length; i++) {
       petals[i*7%(petals.length)].currentState?.deactive();
     }

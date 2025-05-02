@@ -59,73 +59,70 @@ class _FlowerButtonState extends State<FlowerButton> {
     });
 
     // Start the sound detection and animation in parallel
-    final soundDetectionFuture = widget.onGetResult();
-    final animationFuture = widget.phases[phase % widget.phases.length](
-      petalKeys,
-      (text) {
-        setState(() {
-          buttonText = text;
-        });
-      },
-      updateInterval,
-      widget.callBack,
-    );
+    if (phase == 0) {
+      final soundDetectionFuture = widget.onGetResult();
+      final animationFuture = widget.phases[phase % widget.phases.length](
+        petalKeys,
+        (text) {
+          setState(() {
+            buttonText = text;
+          });
+        },
+        updateInterval,
+        widget.callBack,
+      );
 
-    // Wait for sound detection to complete while animation runs
-    final result = await soundDetectionFuture;
+      // Wait for sound detection to complete while animation runs
+      final result = await soundDetectionFuture;
 
-    // Update the top widget with the detected class
-    widget.callBack(
-      Material(
-        elevation: 4.0,
-        borderRadius: BorderRadius.circular(35),
-        child: Padding(
-          padding: EdgeInsets.all(10.0),
-          child: Text(
-            result,
-            textAlign: TextAlign.center,
-            softWrap: true,
-            style: textTheme.bodyLarge,
+      // Update the top widget with the detected class
+      widget.callBack(
+        Material(
+          elevation: 4.0,
+          borderRadius: BorderRadius.circular(35),
+          child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Text(
+              result,
+              textAlign: TextAlign.center,
+              softWrap: true,
+              style: textTheme.bodyLarge,
+            ),
           ),
         ),
-      ),
-      Column(
-        children: [
-          Image.asset('assets/match.png'),
-          SizedBox(height: 25),
-          ElevatedButton(
-            onPressed: () {
-              setState(() {
-                phase = 0;
-              });
-            },
-            style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(
-                ternary,
-              ),
-              elevation: WidgetStateProperty.all(
-                4,
-              ), // Optional: Customize shadow depth
-              shape: WidgetStateProperty.all(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    15,
-                  ), // Optional: Rounded corners
+        Column(
+          children: [
+            Image.asset('assets/match.png'),
+            SizedBox(height: 25),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  phase = 0;
+                });
+              },
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all(ternary),
+                elevation: WidgetStateProperty.all(
+                  4,
+                ), // Optional: Customize shadow depth
+                shape: WidgetStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      15,
+                    ), // Optional: Rounded corners
+                  ),
                 ),
               ),
+              child: Text(
+                "Listen Again",
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
             ),
-            child: Text(
-              "Listen Again",
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-          ),
-        ],
-      ), // Leave bottom unchanged
-    );
+          ],
+        ), // Leave bottom unchanged
+      );
 
-    // Ensure pulsate stops after animation duration
-    if (phase == 0) {
-      Future.delayed(const Duration(seconds: 9), () {
+      Future.delayed(const Duration(seconds: 4), () {
         if (_shouldPulsate) {
           setState(() {
             _shouldPulsate = false;
@@ -133,10 +130,89 @@ class _FlowerButtonState extends State<FlowerButton> {
           });
         }
       });
+
+      // Wait for the animation to complete (if needed)
+      await animationFuture;
     }
 
-    // Wait for the animation to complete (if needed)
-    await animationFuture;
+    if (phase == 1) {
+      updateInterval(0, 40);
+      widget.callBack(
+        null,
+        Text(
+          "Turn around to find the location of the sound",
+          textAlign: TextAlign.center,
+          softWrap: true,
+          style: textTheme.bodyLarge,
+        ),
+      );
+
+      widget.callBack(
+        null,
+        Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  phase = 0;
+                });
+              },
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all(ternary),
+                elevation: WidgetStateProperty.all(
+                  4,
+                ), // Optional: Customize shadow depth
+                shape: WidgetStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      15,
+                    ), // Optional: Rounded corners
+                  ),
+                ),
+              ),
+              child: Text(
+                "Listen Again",
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ),
+            SizedBox(height: 25),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  phase = 0;
+                });
+              },
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all(primary),
+
+                elevation: WidgetStateProperty.all(
+                  4,
+                ), // Optional: Customize shadow depth
+                shape: WidgetStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      15,
+                    ), // Optional: Rounded corners
+                  ),
+                ),
+              ),
+              child: Text(
+                "Scan Again",
+
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: ternary, // Change to your desired text color
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+
+      setState(() {
+        buttonText = "Complete";
+      });
+      updateInterval(10, 15); // TODO: change to actual function
+    }
 
     setState(() {
       phase++;
