@@ -1,5 +1,5 @@
 <div align="center">
-    <img alt="Banner" src="./assets/banner.png">
+    <img alt="Banner" src="./assets/Banner.png">
 </div>
 
 <p align="center">
@@ -8,7 +8,7 @@
     <img alt="GitHub issues" src="https://img.shields.io/github/issues/FranciscoCardoso913/Sense-ShiftAppens25?label=Issues&labelColor=0b2e44&color=b41b27" />
   </a>
   <a href="https://github.com/FranciscoCardoso913/Sense-ShiftAppens25//pulls">
-    <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/FranciscoCardoso913/Sense-ShiftAppens25/?label=PRs&labelColor=0b2e44&color=b41b27" />
+    <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/FranciscoCardoso913/Sense-ShiftAppens25?label=PRs&labelColor=0b2e44&color=b41b27" />
   </a>
 </p>
 
