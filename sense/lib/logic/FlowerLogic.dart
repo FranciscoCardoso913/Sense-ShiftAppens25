@@ -24,12 +24,8 @@ List<PhaseFunction> flowerPhases = [
       petals[i*7%(petals.length)].currentState?.toggleActive();
       await Future.delayed(const Duration(milliseconds: 800));
     }
-        callBack(null, Text(
-                    "Sound detected",
-                    textAlign: TextAlign.center,
-                    softWrap: true,
-                    style: textTheme.bodyLarge,
-                  ) );
+        
+        updateText("Locate");
     
 
   },

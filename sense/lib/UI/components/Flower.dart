@@ -32,7 +32,7 @@ class _FlowerButtonState extends State<FlowerButton> {
   final GlobalKey<IndicatorsState> indicator = GlobalKey<IndicatorsState>();
   final List<Color> colors = [fith, primary, ternary, secondary];
   late final List<GlobalKey<PetalState>> petalKeys;
-  
+
   @override
   void initState() {
     super.initState();
@@ -47,10 +47,9 @@ class _FlowerButtonState extends State<FlowerButton> {
     );
   }
 
-  void updateInterval(int start, int end){
+  void updateInterval(int start, int end) {
     indicator.currentState?.updateInterval(start, end);
   }
-
 
   Future<void> _handlePress() async {
     setState(() {
@@ -77,11 +76,51 @@ class _FlowerButtonState extends State<FlowerButton> {
 
     // Update the top widget with the detected class
     widget.callBack(
-      Text(
-        "Detected: $result",
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      Material(
+        elevation: 4.0,
+        borderRadius: BorderRadius.circular(35),
+        child: Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Text(
+            result,
+            textAlign: TextAlign.center,
+            softWrap: true,
+            style: textTheme.bodyLarge,
+          ),
+        ),
       ),
-      null, // Leave bottom unchanged
+      Column(
+        children: [
+          Image.asset('assets/match.png'),
+          SizedBox(height: 25),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                phase = 0;
+              });
+            },
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.all(
+                ternary,
+              ),
+              elevation: WidgetStateProperty.all(
+                4,
+              ), // Optional: Customize shadow depth
+              shape: WidgetStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    15,
+                  ), // Optional: Rounded corners
+                ),
+              ),
+            ),
+            child: Text(
+              "Listen Again",
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ),
+        ],
+      ), // Leave bottom unchanged
     );
 
     // Ensure pulsate stops after animation duration
@@ -114,7 +153,6 @@ class _FlowerButtonState extends State<FlowerButton> {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            
             Indicators(key: indicator),
             // Petals
             for (int i = 0; i < petalCount; i++)
@@ -127,7 +165,7 @@ class _FlowerButtonState extends State<FlowerButton> {
               ),
 
             // Pulsating effect, make sure it only shows for the first phase or any condition you want
-            if (_shouldPulsate && phase ==0)
+            if (_shouldPulsate && phase == 0)
               Pulsator(
                 key: ValueKey<int>(_pulsatorKey),
                 count: 6, // Increased count to show more pulses
@@ -157,7 +195,6 @@ class _FlowerButtonState extends State<FlowerButton> {
               ),
               child: Text(buttonText),
             ),
-            
           ],
         ),
       ),
