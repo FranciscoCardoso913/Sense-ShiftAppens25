@@ -17,8 +17,6 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -36,8 +34,7 @@ class _MainPageState extends State<MainPage> {
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.center, // Centers the buttons
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
                         onPressed: () {

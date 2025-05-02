@@ -51,7 +51,7 @@ class FlowerSectionState extends State<FlowerSection> {
               flex: 5,
               child: Align(
                 alignment: Alignment.center,
-                child: FlowerButton(key: Key('0'),phases: flowerPhases, callBack: callBack),
+                child: FlowerButton(phases: flowerPhases, callBack: callBack),
               ),
             ),
             Expanded(
