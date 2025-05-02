@@ -68,6 +68,7 @@ flutter:
     - assets/Logo circular.png
     - assets/logo.png
     - assets/Donations.png
+    - assets/logo-niaefeup.png
 
   fonts:
     - family: Poppins

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sense/UI/modal.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title});
@@ -8,14 +9,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,14 +51,26 @@ class _MainPageState extends State<MainPage> {
               flex: 1,
               child: Column(
                 children: [
-                  Divider(),
                   Row(
                     mainAxisAlignment:
                         MainAxisAlignment.center, // Centers the buttons
                     children: [
-                      IconButton(onPressed: () {}, icon: Icon(Icons.volunteer_activism_outlined), iconSize: 30,),
+                      IconButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => CustomModal(),
+                          );
+                        },
+                        icon: Icon(Icons.volunteer_activism_outlined),
+                        iconSize: 30,
+                      ),
                       SizedBox(width: 30), // Adds space between the buttons
-                      IconButton(onPressed: () {}, icon: Icon(Icons.help_outline_rounded), iconSize: 30,),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.help_outline_rounded),
+                        iconSize: 30,
+                      ),
                     ],
                   ),
                 ],

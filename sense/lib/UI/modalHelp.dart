@@ -42,17 +42,17 @@ class ModalHelp extends StatelessWidget {
               ),
             ),
             Row(
-              children:[ Text(
-                "Start by finding the sound your phone is hearing. Click the flower center",
-                style: TextTheme.of(
-                  context,
-                ).bodyMedium?.copyWith(fontFamily: "Poppins"),
-              ),]
-
+              children: [
+                Text(
+                  "Start by finding the sound your phone is hearing. Click the flower center",
+                  style: TextTheme.of(
+                    context,
+                  ).bodyMedium?.copyWith(fontFamily: "Poppins"),
+                ),
+              ],
             ),
 
-
-             Align(
+            Align(
               alignment: Alignment.center,
               child: Text(
                 "1.Listen",
@@ -61,7 +61,7 @@ class ModalHelp extends StatelessWidget {
                   color: Theme.of(context).colorScheme.tertiary,
                 ),
               ),
-             ),
+            ),
           ],
         ),
       ),
