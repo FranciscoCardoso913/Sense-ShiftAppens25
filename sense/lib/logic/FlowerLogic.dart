@@ -9,7 +9,9 @@ typedef PhaseFunction = Future<void> Function(List<GlobalKey<PetalState>> petals
 
 List<PhaseFunction> flowerPhases = [
    (List<GlobalKey<PetalState>> petals, void Function(String) updateText, void Function(Widget?, Widget?)callBack) async {
-
+    for (int i = 0; i < petals.length; i++) {
+      petals[i*7%(petals.length)].currentState?.deactive();
+    }
     updateText("Listening");
     callBack(null, Text(
                     "Searching for the sound",

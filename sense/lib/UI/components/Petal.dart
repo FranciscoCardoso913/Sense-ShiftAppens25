@@ -22,6 +22,11 @@ class PetalState extends State<Petal> {
       isActive = !isActive;
     });
   }
+    void deactive() {
+    setState(() {
+      isActive = false;
+    });
+  }
    @override
   Widget build(BuildContext context) {
     return Align(

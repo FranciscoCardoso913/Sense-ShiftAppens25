@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'Components/PulsatingEffect.dart';
 import 'components/FlowerSection.dart';
 import 'package:sense/UI/modal.dart';
 

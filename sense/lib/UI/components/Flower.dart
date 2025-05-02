@@ -49,22 +49,28 @@ class _FlowerButtonState extends State<FlowerButton> {
       _pulsatorKey++;
     });
 
-    await widget.phases[phase% widget.phases.length](petalKeys, (text) {
+    await widget.phases[phase % widget.phases.length](petalKeys, (text) {
       setState(() {
         buttonText = text;
       });
     }, widget.callBack);
 
+    // Use a flag that ensures pulsate only stops once the animation duration is done
+    if(phase==0){Future.delayed(const Duration(seconds: 9), () {
+      if (_shouldPulsate) {
+        setState(() {
+          _shouldPulsate = false;
+          _pulsatorKey = 0;
+        });
+      }
+    });}
+    
     setState(() {
       phase++;
+      if (phase >= widget.phases.length) phase = 0;
     });
 
-    // Stop pulsating after animation duration
-    Future.delayed(const Duration(seconds: 4), () {
-      setState(() {
-        _shouldPulsate = false;
-      });
-    });
+
   }
 
   @override
@@ -86,26 +92,26 @@ class _FlowerButtonState extends State<FlowerButton> {
                 ),
               ),
 
-            // Pulsating effect
-            if (_shouldPulsate && phase==0)
+            // Pulsating effect, make sure it only shows for the first phase or any condition you want
+            if (_shouldPulsate && phase ==0)
               Pulsator(
-              key: ValueKey<int>(_pulsatorKey),
-              count: 6, // Increased count to show more pulses
-              duration: const Duration(seconds: 9), // Make it last longer
-              repeat: 1,
-              style: PulseStyle(
-                color: fith,
-                borderColor: quaternary,
-                borderWidth: 2.0, // Make border thicker for visibility
-                gradientStyle: PulseGradientStyle(
-                  startColor: quaternary,
-                  start: 0.3,
-                  reverseColors: true,
+                key: ValueKey<int>(_pulsatorKey),
+                count: 6, // Increased count to show more pulses
+                duration: const Duration(seconds: 9), // Make it last longer
+                repeat: 1,
+                style: PulseStyle(
+                  color: fith,
+                  borderColor: quaternary,
+                  borderWidth: 2.0, // Make border thicker for visibility
+                  gradientStyle: PulseGradientStyle(
+                    startColor: quaternary,
+                    start: 0.3,
+                    reverseColors: true,
+                  ),
+                  pulseCurve: Curves.easeOutQuint,
+                  opacityCurve: Curves.easeOut,
                 ),
-                pulseCurve: Curves.easeOutQuint,
-                opacityCurve: Curves.easeOut,
               ),
-            ),
 
             // Center button
             ElevatedButton(
