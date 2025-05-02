@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'components/Flower.dart';
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title});
   final String title;
@@ -32,11 +32,18 @@ class _MainPageState extends State<MainPage> {
                 child: Image.asset('assets/logo.png'),
               ),
             ),
+              Expanded(
+              flex: 1,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Text("Dog Bark!",   style: Theme.of(context).textTheme.bodyLarge),
+              ),
+            ),
             Expanded(
               flex: 5,
               child: Align(
                 alignment: Alignment.center,
-                child: TextButton(onPressed: () {}, child: Text("Start")),
+                child: FlowerButton(key: Key('0'),),
               ),
             ),
             Expanded(
