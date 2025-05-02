@@ -8,12 +8,14 @@ import '../../logic/FlowerLogic.dart';
 
 class FlowerButton extends StatefulWidget {
   final List<PhaseFunction> phases;
+  final Future<String> Function() onGetResult;
   final void Function(Widget? top, Widget? bottom) callBack;
 
   const FlowerButton({
     super.key,
     required this.phases,
     required this.callBack,
+    required this.onGetResult,
   });
 
   @override
@@ -52,33 +54,55 @@ class _FlowerButtonState extends State<FlowerButton> {
 
   Future<void> _handlePress() async {
     setState(() {
-      if(phase == 1) _indicators=true;
+      if (phase == 1) _indicators = true;
       _shouldPulsate = true;
       _pulsatorKey++;
     });
 
-    await widget.phases[phase % widget.phases.length](petalKeys, (text) {
-      setState(() {
-        buttonText = text;
-      });
-    },updateInterval, widget.callBack);
-
-    // Use a flag that ensures pulsate only stops once the animation duration is done
-    if(phase==0){Future.delayed(const Duration(seconds: 9), () {
-      if (_shouldPulsate) {
+    // Start the sound detection and animation in parallel
+    final soundDetectionFuture = widget.onGetResult();
+    final animationFuture = widget.phases[phase % widget.phases.length](
+      petalKeys,
+      (text) {
         setState(() {
-          _shouldPulsate = false;
-          _pulsatorKey = 0;
+          buttonText = text;
         });
-      }
-    });}
+      },
+      updateInterval,
+      widget.callBack,
+    );
+
+    // Wait for sound detection to complete while animation runs
+    final result = await soundDetectionFuture;
+
+    // Update the top widget with the detected class
+    widget.callBack(
+      Text(
+        "Detected: $result",
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
+      null, // Leave bottom unchanged
+    );
+
+    // Ensure pulsate stops after animation duration
+    if (phase == 0) {
+      Future.delayed(const Duration(seconds: 9), () {
+        if (_shouldPulsate) {
+          setState(() {
+            _shouldPulsate = false;
+            _pulsatorKey = 0;
+          });
+        }
+      });
+    }
+
+    // Wait for the animation to complete (if needed)
+    await animationFuture;
 
     setState(() {
       phase++;
       if (phase >= widget.phases.length) phase = 0;
     });
-
-
   }
 
   @override

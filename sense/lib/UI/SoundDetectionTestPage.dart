@@ -143,9 +143,8 @@ class _SoundDetectionScreenState extends State<SoundDetectionScreen> {
                             return Stack(children: <Widget>[
                               Align(
                                   alignment: Alignment.bottomRight,
-                                  child: inferenceTimeWidget(showResult(
-                                          inferenceSnapshot, 'inferenceTime') +
-                                      'ms')),
+                                  child: inferenceTimeWidget('${showResult(
+                                          inferenceSnapshot, 'inferenceTime')}ms')),
                               labelListWidget(
                                   labelSnapshot.data,
                                   showResult(
@@ -180,7 +179,10 @@ class _SoundDetectionScreenState extends State<SoundDetectionScreen> {
                       child: const Icon(Icons.adjust),
                     );
                   }
-                })));
+                }
+            )
+        )
+    );
   }
 
   ///If snapshot data matches the label, it will change colour
