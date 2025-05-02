@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Components/PulsatingEffect.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title});
@@ -20,8 +21,6 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -36,7 +35,7 @@ class _MainPageState extends State<MainPage> {
               flex: 5,
               child: Align(
                 alignment: Alignment.center,
-                child: TextButton(onPressed: () {}, child: Text("Start")),
+                child: PulsatingButton(onPressed: () {}, buttonText: "Start"),
               ),
             ),
             Expanded(
@@ -60,12 +59,19 @@ class _MainPageState extends State<MainPage> {
                 children: [
                   Divider(),
                   Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.center, // Centers the buttons
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      IconButton(onPressed: () {}, icon: Icon(Icons.volunteer_activism_outlined), iconSize: 30,),
-                      SizedBox(width: 30), // Adds space between the buttons
-                      IconButton(onPressed: () {}, icon: Icon(Icons.help_outline_rounded), iconSize: 30,),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.volunteer_activism_outlined),
+                        iconSize: 30,
+                      ),
+                      SizedBox(width: 30),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.help_outline_rounded),
+                        iconSize: 30,
+                      ),
                     ],
                   ),
                 ],
