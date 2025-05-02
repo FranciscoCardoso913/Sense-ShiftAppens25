@@ -80,6 +80,8 @@ flutter:
     - assets/help_modal/4th_row.png
     - assets/help_modal/5th_row.png
     - assets/help_modal/6th_row.png
+    - assets/models/sound_classifier.tflite
+    - assets/models/labels.txt
 
   fonts:
     - family: Poppins
