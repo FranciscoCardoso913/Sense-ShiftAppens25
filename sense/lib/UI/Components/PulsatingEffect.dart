@@ -17,11 +17,13 @@ class PulsatingButton extends StatefulWidget {
 }
 
 class _PulsatingButtonState extends State<PulsatingButton> {
-  int _pulseKey = 0;
+  bool _shouldPulsate = false;
+  int _pulsatorKey = 0;
 
   void _handlePress() {
     setState(() {
-      _pulseKey++;
+      _shouldPulsate = true;
+      _pulsatorKey++;
     });
     widget.onPressed();
   }
@@ -31,25 +33,29 @@ class _PulsatingButtonState extends State<PulsatingButton> {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Pulsator(
-          key: ValueKey(_pulseKey),
-          count: 4,
-          duration: Duration(seconds: 4),
-          repeat: 1,
-          style: PulseStyle(
-            color: fith,
-            borderColor: quaternary,
-            borderWidth: 4.0,
-            gradientStyle: PulseGradientStyle(
-              startColor: quaternary,
-              start: 0.5,
-              reverseColors: true,
+        if (_shouldPulsate)
+          Pulsator(
+            key: ValueKey<int>(_pulsatorKey),
+            count: 4,
+            duration: const Duration(seconds: 4),
+            repeat: 1,
+            style: PulseStyle(
+              color: fith,
+              borderColor: quaternary,
+              borderWidth: 4.0,
+              gradientStyle: PulseGradientStyle(
+                startColor: quaternary,
+                start: 0.5,
+                reverseColors: true,
+              ),
+              pulseCurve: Curves.easeOutQuint,
+              opacityCurve: Curves.easeOut,
             ),
-            pulseCurve: Curves.easeOutQuint,
-            opacityCurve: Curves.easeOut,
           ),
+        TextButton(
+          onPressed: _handlePress,
+          child: Text(widget.buttonText),
         ),
-        TextButton(onPressed: _handlePress, child: Text(widget.buttonText)),
       ],
     );
   }
