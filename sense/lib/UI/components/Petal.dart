@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
 
-class Petal extends StatelessWidget {
+class Petal extends StatefulWidget {
   final Color color;
   final Color deactivateColor;
 
-  const Petal({super.key,
+  const Petal({
+    super.key,
     required this.color,
-    required this.deactivateColor
-  }); 
+    required this.deactivateColor,
+  });
 
+  @override
+  State<Petal> createState() => PetalState();
+}
+
+class PetalState extends State<Petal> {
+  bool isActive = false;
+
+  void toggleActive() {
+    setState(() {
+      isActive = !isActive;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -17,7 +30,7 @@ class Petal extends StatelessWidget {
                       width: 40,
                       height: 80,
                       decoration: BoxDecoration(
-                        color: this.deactivateColor,
+                        color: isActive? widget.color:widget.deactivateColor,
                         borderRadius: BorderRadius.all(
                           Radius.elliptical(30, 60),
                         ),
