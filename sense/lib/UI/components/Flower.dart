@@ -5,6 +5,8 @@ import 'dart:math';
 import '../../Data/Theme.dart';
 import 'Petal.dart';
 import '../../logic/FlowerLogic.dart';
+import '../../logic/rotation_tracker.dart';
+import 'dart:async';
 
 class FlowerButton extends StatefulWidget {
   final List<PhaseFunction> phases;
@@ -23,6 +25,10 @@ class FlowerButton extends StatefulWidget {
 }
 
 class _FlowerButtonState extends State<FlowerButton> {
+  final tracker = RotationTracker();
+  double currentAngle = 0.0;
+
+
   final int petalCount = 12;
   int phase = 0;
   String buttonText = 'Start';
@@ -37,6 +43,16 @@ class _FlowerButtonState extends State<FlowerButton> {
   void initState() {
     super.initState();
     petalKeys = List.generate(petalCount, (_) => GlobalKey<PetalState>());
+    tracker.initialize();
+
+    // Optional: Check every 500ms and print angle
+    Timer.periodic(Duration(milliseconds: 500), (timer) {
+      final angle = tracker.getCurrentAngle();
+      setState(() {
+        currentAngle = angle;
+      });
+      print('Current Angle: $angle°');
+    });
   }
 
   Petal buildPetal(int i) {
@@ -149,6 +165,7 @@ class _FlowerButtonState extends State<FlowerButton> {
           style: textTheme.bodyLarge,
         ),
       );
+
 
       widget.callBack(
         null,
