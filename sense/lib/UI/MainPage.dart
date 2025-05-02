@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'components/FlowerSection.dart';
 import 'package:sense/UI/modal.dart';
 
 class MainPage extends StatefulWidget {
@@ -9,6 +10,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,28 +28,8 @@ class _MainPageState extends State<MainPage> {
                 child: Image.asset('assets/logo.png'),
               ),
             ),
-            Expanded(
-              flex: 5,
-              child: Align(
-                alignment: Alignment.center,
-                child: TextButton(onPressed: () {}, child: Text("Start")),
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: SizedBox(
-                  width: 275,
-                  child: Text(
-                    "Turn around to find the location of the sound",
-                    textAlign: TextAlign.center,
-                    softWrap: true,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ),
-              ),
-            ),
+            FlowerSection(),
+           
             Expanded(
               flex: 1,
               child: Column(

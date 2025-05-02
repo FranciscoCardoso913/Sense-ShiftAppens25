@@ -4,10 +4,13 @@ const Color primary = Color(0xff264653);
 const Color secondary = Color(0xff17C3B2);
 const Color ternary = Color(0xffFFCB77);
 const Color quaternary = Color(0xffFEF9EF);
-const Color fith = Color(0xffFE6D73);
-const Color error = Color(0xffD44148);
-const Color textcolour = primary;
-const Color iconcolor = Color(0xffABABAB);
+const Color fith=Color(0xffFE6D73);
+const Color error=Color(0xffD44148);
+const Color textcolour= primary;
+const Color iconcolor=Color(0xffABABAB);
+const Color lightGray =Color(0xffCCC4C4);
+const Color darkGray = Color(0xffABABAB);
+
 
 const textTheme = TextTheme(
   displayLarge: TextStyle(
