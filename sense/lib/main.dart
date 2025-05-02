@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sense/UI/MainPage.dart';
 import 'Data/Theme.dart'; // make sure the path matches
+
 void main() {
   runApp(const MyApp());
 }
@@ -18,4 +19,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

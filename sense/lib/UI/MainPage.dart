@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Components/PulsatingEffect.dart';
+import 'components/FlowerSection.dart';
+import 'package:sense/UI/modal.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title});
@@ -9,13 +11,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,42 +27,26 @@ class _MainPageState extends State<MainPage> {
                 child: Image.asset('assets/logo.png'),
               ),
             ),
-            Expanded(
-              flex: 5,
-              child: Align(
-                alignment: Alignment.center,
-                child: PulsatingButton(onPressed: () {}, buttonText: "Start"),
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: SizedBox(
-                  width: 275,
-                  child: Text(
-                    "Turn around to find the location of the sound",
-                    textAlign: TextAlign.center,
-                    softWrap: true,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ),
-              ),
-            ),
+            FlowerSection(),
+           
             Expanded(
               flex: 1,
               child: Column(
                 children: [
-                  Divider(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => CustomModal(),
+                          );
+                        },
                         icon: Icon(Icons.volunteer_activism_outlined),
                         iconSize: 30,
                       ),
-                      SizedBox(width: 30),
+                      SizedBox(width: 30), // Adds space between the buttons
                       IconButton(
                         onPressed: () {},
                         icon: Icon(Icons.help_outline_rounded),
