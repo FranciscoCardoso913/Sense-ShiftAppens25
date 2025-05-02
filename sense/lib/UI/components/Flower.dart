@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pulsator/pulsator.dart';
+import 'package:sense/UI/components/Indicators.dart';
 import 'dart:math';
 import '../../Data/Theme.dart';
 import 'Petal.dart';
@@ -25,10 +26,11 @@ class _FlowerButtonState extends State<FlowerButton> {
   String buttonText = 'Start';
   bool _shouldPulsate = false;
   int _pulsatorKey = 0;
-
+  bool _indicators = false;
+  final GlobalKey<IndicatorsState> indicator = GlobalKey<IndicatorsState>();
   final List<Color> colors = [fith, primary, ternary, secondary];
   late final List<GlobalKey<PetalState>> petalKeys;
-
+  
   @override
   void initState() {
     super.initState();
@@ -43,8 +45,14 @@ class _FlowerButtonState extends State<FlowerButton> {
     );
   }
 
+  void updateInterval(int start, int end){
+    indicator.currentState?.updateInterval(start, end);
+  }
+
+
   Future<void> _handlePress() async {
     setState(() {
+      if(phase == 1) _indicators=true;
       _shouldPulsate = true;
       _pulsatorKey++;
     });
@@ -53,7 +61,7 @@ class _FlowerButtonState extends State<FlowerButton> {
       setState(() {
         buttonText = text;
       });
-    }, widget.callBack);
+    },updateInterval, widget.callBack);
 
     // Use a flag that ensures pulsate only stops once the animation duration is done
     if(phase==0){Future.delayed(const Duration(seconds: 9), () {
@@ -64,7 +72,7 @@ class _FlowerButtonState extends State<FlowerButton> {
         });
       }
     });}
-    
+
     setState(() {
       phase++;
       if (phase >= widget.phases.length) phase = 0;
@@ -82,6 +90,8 @@ class _FlowerButtonState extends State<FlowerButton> {
         child: Stack(
           alignment: Alignment.center,
           children: [
+            
+            Indicators(key: indicator),
             // Petals
             for (int i = 0; i < petalCount; i++)
               Transform.rotate(
@@ -123,6 +133,7 @@ class _FlowerButtonState extends State<FlowerButton> {
               ),
               child: Text(buttonText),
             ),
+            
           ],
         ),
       ),
