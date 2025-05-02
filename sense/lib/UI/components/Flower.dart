@@ -54,8 +54,10 @@ class _FlowerButtonState extends State<FlowerButton> {
   Future<void> _handlePress() async {
     setState(() {
       if (phase == 1) _indicators = true;
-      _shouldPulsate = true;
+      if(phase == 0){
+        _shouldPulsate = true;
       _pulsatorKey++;
+      }
     });
 
     // Start the sound detection and animation in parallel
@@ -99,6 +101,7 @@ class _FlowerButtonState extends State<FlowerButton> {
                 setState(() {
                   phase = 0;
                 });
+                _handlePress();
               },
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(ternary),
@@ -122,7 +125,7 @@ class _FlowerButtonState extends State<FlowerButton> {
         ), // Leave bottom unchanged
       );
 
-      Future.delayed(const Duration(seconds: 4), () {
+      Future.delayed(const Duration(seconds: 1), () {
         if (_shouldPulsate) {
           setState(() {
             _shouldPulsate = false;
@@ -156,6 +159,7 @@ class _FlowerButtonState extends State<FlowerButton> {
                 setState(() {
                   phase = 0;
                 });
+                _handlePress();
               },
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(ternary),
@@ -179,8 +183,9 @@ class _FlowerButtonState extends State<FlowerButton> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  phase = 0;
+                  phase = 1;
                 });
+                _handlePress();
               },
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(primary),
