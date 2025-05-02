@@ -16,10 +16,10 @@
   <a href="https://github.com/FranciscoCardoso913/Sense-ShiftAppens25/stargazers">
     <img alt="GitHub stars" src="https://img.shields.io/github/stars/FranciscoCardoso913/Sense-ShiftAppens25?style=flat&logo=github&logoColor=white&label=Stars&labelColor=0b2e44&color=b41b27" />
   </a>
-  <a href="https://www.figma.com/design/gPBEkQUZbiTJnn7XmYfYIN/Untitled?node-id=59-18&t=D8GtG0ijODsHL7bv-1">
+  <a href="https://www.figma.com/design/ETAjqNRUzNoADQi436DO2p/Sense?node-id=0-1&p=f&t=Uddfzb1dooXbwcxn-0">
     <img alt="Figma Project" src="https://img.shields.io/badge/Figma-577f4e?logo=figma&logoColor=white">
   </a>
-  <a href="https://taikai.network/shift-appens/hackathons/shift-appens-2025/projects/cma5qmwbm0dghu9xxhfum3wlk/idea">
+  <a href="https://taikai.network/shift-appens/hackathons/shift-appens-2025/projects/cma5qriee0dh2u9xxewj1bjjo/idea">
     <img alt="Taikai Project" src="https://img.shields.io/badge/Taikai-577f4e">
   </a>
   <a href="https://github.com/FranciscoCardoso913/Sense-ShiftAppens25/blob/main/LICENSE">
