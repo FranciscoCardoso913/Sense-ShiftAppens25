@@ -67,6 +67,7 @@ flutter:
   assets:
     - assets/Logo circular.png
     - assets/logo.png
+    - assets/Donations.png
 
   fonts:
     - family: Poppins
@@ -76,7 +77,6 @@ flutter:
           weight: 700
         - asset: assets/fonts/Poppins-SemiBold.ttf
           weight: 600
-    - assets/Donations.png
   
 
 flutter_native_splash:
