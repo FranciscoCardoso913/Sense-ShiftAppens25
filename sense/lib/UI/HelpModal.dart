@@ -28,13 +28,7 @@ class HelpModal extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.center,
-                child: Text(
-                  "Help",
-                  style: TextTheme.of(context).displayLarge?.copyWith(
-                    fontFamily: "waveruder",
-                    color: Theme.of(context).colorScheme.tertiary,
-                  ),
-                ),
+                child: Image.asset('assets/Help.png', height: 40),
               ),
               Padding(padding: EdgeInsets.symmetric(vertical: 12)),
               Align(
@@ -49,13 +43,7 @@ class HelpModal extends StatelessWidget {
               Padding(padding: EdgeInsets.symmetric(vertical: 12)),
               Align(
                 alignment: Alignment.center,
-                child: Text(
-                  "1. Listen",
-                  style: TextTheme.of(context).displaySmall?.copyWith(
-                    fontFamily: "waveruder",
-                    color: Theme.of(context).colorScheme.tertiary,
-                  ),
-                ),
+                child: Image.asset('assets/Listen.png', height: 25),
               ),
               Padding(padding: EdgeInsets.symmetric(vertical: 8)),
               Align(
@@ -70,13 +58,7 @@ class HelpModal extends StatelessWidget {
               Padding(padding: EdgeInsets.symmetric(vertical: 12)),
               Align(
                 alignment: Alignment.center,
-                child: Text(
-                  "2. Turn",
-                  style: TextTheme.of(context).displaySmall?.copyWith(
-                    fontFamily: "waveruder",
-                    color: Theme.of(context).colorScheme.tertiary,
-                  ),
-                ),
+                child: Image.asset('assets/Locate.png', height: 25),
               ),
               Padding(padding: EdgeInsets.symmetric(vertical: 8)),
               Align(
