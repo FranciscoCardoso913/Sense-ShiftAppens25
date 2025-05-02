@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import '../../Data/Theme.dart';
 import 'Petal.dart';
-
+import '../../logic/FlowerLogic.dart';
 class FlowerButton extends StatefulWidget {
-  const FlowerButton({super.key});
+
+  final List<PhaseFunction> phases;
+  const FlowerButton({super.key, required this.phases});
 
   @override
   _FlowerButtonState createState() => _FlowerButtonState();
@@ -50,10 +52,8 @@ class _FlowerButtonState extends State<FlowerButton> {
 
             // Center button
             ElevatedButton(
-              onPressed: () {
-                for (var key in petalKeys) {
-                  key.currentState?.toggleActive();
-                }
+              onPressed: () async {
+                await widget.phases[0](petalKeys);
               },
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
