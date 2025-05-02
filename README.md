@@ -35,7 +35,7 @@
 # Project Overview
 
 <h4 align="center">
-  Sense a different way to listen 
+  Sense - A different way to listen 
 </h4>
 
 ## Problem
@@ -52,7 +52,9 @@ Our solution is Sense, a mobile app that detects sounds in real time, identifies
 
 
 # The Team
-
+<h4 align="center">
+  SoNIcs
+</h4>
 <table>
   <tr>
     <td align="center">
