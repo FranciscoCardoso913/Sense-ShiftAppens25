@@ -8,6 +8,8 @@ const Color fith=Color(0xffFE6D73);
 const Color error=Color(0xffD44148);
 const Color textcolour= primary;
 const Color iconcolor=Color(0xffABABAB);
+const Color lightGray =Color(0xffCCC4C4);
+const Color darkGray = Color(0xffABABAB);
 
 const textTheme = TextTheme(
   

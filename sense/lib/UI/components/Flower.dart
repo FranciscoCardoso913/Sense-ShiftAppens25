@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-
-class FlowerButton extends StatelessWidget {
+import '../../Data/Theme.dart';
+import 'Petal.dart';
+class FlowerButton extends StatefulWidget {
   const FlowerButton({super.key});
 
   @override
+  _FlowerButtonState createState() =>  _FlowerButtonState();
+}
+
+class _FlowerButtonState extends State<FlowerButton> {
+
+  final n = 12;
+  List<Petal> petals= [];
+  final colors = [fith, primary, ternary, secondary];
+
+  @override
   Widget build(BuildContext context) {
+    for (int i = 0; i < n; i++){
+      petals.add(Petal(color: colors[i ~/(colors.length-1)], deactivateColor: i%2==0? lightGray: darkGray ));
+    }
     return Center(
       child: SizedBox(
         width: 200,
@@ -14,31 +28,12 @@ class FlowerButton extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             // Petals (you can adjust count/angle)
-            for (int i = 0; i < 12; i++)
+            for (int i = 0; i < n; i++)
               Transform.rotate(
-                angle: (pi / 6) * i -0.3,
+                angle: (pi / (n/2)) * i +0.3,
                 child: Transform.translate(
                   offset:  Offset(0, -15),
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: Container(
-                      width: 40,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: Colors.pinkAccent,
-                        borderRadius: BorderRadius.all(
-                          Radius.elliptical(30, 60),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black26, // subtle shadow color
-                            blurRadius: 10, // how soft the shadow is
-                            offset: Offset(2, 2), // x, y offset
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  child: petals[i]
                 ),
               ),
 
