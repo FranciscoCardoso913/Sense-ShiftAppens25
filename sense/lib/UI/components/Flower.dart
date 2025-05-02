@@ -6,7 +6,8 @@ import '../../logic/FlowerLogic.dart';
 class FlowerButton extends StatefulWidget {
 
   final List<PhaseFunction> phases;
-  const FlowerButton({super.key, required this.phases});
+  final void Function(Widget? top, Widget? bottom) callBack;
+  const FlowerButton({super.key, required this.phases, required this.callBack});
 
   @override
   _FlowerButtonState createState() => _FlowerButtonState();
@@ -14,8 +15,10 @@ class FlowerButton extends StatefulWidget {
 
 class _FlowerButtonState extends State<FlowerButton> {
   final int petalCount = 12;
+  int phase = 0;
   final List<Color> colors = [fith, primary, ternary, secondary];
   late final List<GlobalKey<PetalState>> petalKeys;
+  String buttonText = 'Start';
 
   @override
   void initState() {
@@ -52,15 +55,22 @@ class _FlowerButtonState extends State<FlowerButton> {
 
             // Center button
             ElevatedButton(
-              onPressed: () async {
-                await widget.phases[0](petalKeys);
-              },
+             onPressed: () async {
+    await widget.phases[phase](petalKeys, (text) {
+      setState(() {
+        buttonText = text;
+      });
+    }, widget.callBack);
+    setState(() {
+      phase++;
+    });
+  },
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
                 padding: const EdgeInsets.all(40),
                 backgroundColor: Theme.of(context).colorScheme.surface,
               ),
-              child: const Icon(Icons.favorite),
+              child: Text(buttonText),
             ),
           ],
         ),

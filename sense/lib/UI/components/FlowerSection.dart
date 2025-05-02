@@ -14,14 +14,26 @@ class FlowerSection extends StatefulWidget {
 
 class FlowerSectionState extends State<FlowerSection> {
 
-  Text topText = Text("");
-  Text bottomText = Text(
-                    "Turn around to find the location of the sound",
-                    textAlign: TextAlign.center,
-                    softWrap: true,
-                    style: textTheme.bodyLarge,
-                  );
- 
+
+  int phase = 0;
+  Widget top = Text("");
+  Widget bottom = Text("");
+  
+  void setTop(Widget widget) {
+    setState(() {
+      top = widget;
+    });
+  }
+    void setBottom(Widget widget) {
+    setState(() {
+      bottom = widget;
+    });
+    }
+    void callBack(Widget? top, Widget? bottom){
+        if(top!=null) setTop(top);
+        if(bottom!=null) setBottom(bottom);
+    }
+  
   @override
   Widget build(BuildContext context) {
     return   Expanded(
@@ -32,14 +44,14 @@ class FlowerSectionState extends State<FlowerSection> {
               flex: 1,
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: topText,
+                child: top,
               ),
             ),
             Expanded(
               flex: 5,
               child: Align(
                 alignment: Alignment.center,
-                child: FlowerButton(key: Key('0'),phases: phases,),
+                child: FlowerButton(key: Key('0'),phases: flowerPhases, callBack: callBack),
               ),
             ),
             Expanded(
@@ -48,7 +60,7 @@ class FlowerSectionState extends State<FlowerSection> {
                 alignment: Alignment.topCenter,
                 child: SizedBox(
                   width: 275,
-                  child: bottomText
+                  child: bottom
                 ),
               ),
             ),
