@@ -27,10 +27,10 @@ class _FlowerButtonState extends State<FlowerButton> {
   bool _shouldPulsate = false;
   int _pulsatorKey = 0;
   bool _indicators = false;
-
+  final GlobalKey<IndicatorsState> indicator = GlobalKey<IndicatorsState>();
   final List<Color> colors = [fith, primary, ternary, secondary];
   late final List<GlobalKey<PetalState>> petalKeys;
-
+  
   @override
   void initState() {
     super.initState();
@@ -45,6 +45,11 @@ class _FlowerButtonState extends State<FlowerButton> {
     );
   }
 
+  void updateInterval(int start, int end){
+    indicator.currentState?.updateInterval(start, end);
+  }
+
+
   Future<void> _handlePress() async {
     setState(() {
       if(phase == 1) _indicators=true;
@@ -56,7 +61,7 @@ class _FlowerButtonState extends State<FlowerButton> {
       setState(() {
         buttonText = text;
       });
-    }, widget.callBack);
+    },updateInterval, widget.callBack);
 
     // Use a flag that ensures pulsate only stops once the animation duration is done
     if(phase==0){Future.delayed(const Duration(seconds: 9), () {
@@ -86,7 +91,7 @@ class _FlowerButtonState extends State<FlowerButton> {
           alignment: Alignment.center,
           children: [
             
-            if(_indicators)Indicators(),
+            Indicators(key: indicator),
             // Petals
             for (int i = 0; i < petalCount; i++)
               Transform.rotate(

@@ -3,15 +3,16 @@ import 'dart:io';
 import '../UI/components/Petal.dart';
 import 'package:flutter/material.dart';
 import '../Data/Theme.dart';
-typedef PhaseFunction = Future<void> Function(List<GlobalKey<PetalState>> petals, void Function(String) updateText,  void Function(Widget?, Widget?)callBack);
+typedef PhaseFunction = Future<void> Function(List<GlobalKey<PetalState>> petals, void Function(String) updateText, void Function(int start, int end) setDirection, void Function(Widget?, Widget?)callBack);
 
 
 
 List<PhaseFunction> flowerPhases = [
-   (List<GlobalKey<PetalState>> petals, void Function(String) updateText, void Function(Widget?, Widget?)callBack) async {
+   (List<GlobalKey<PetalState>> petals, void Function(String) updateText, void Function(int start, int end) setDirection,void Function(Widget?, Widget?)callBack) async {
     for (int i = 0; i < petals.length; i++) {
       petals[i*7%(petals.length)].currentState?.deactive();
     }
+    setDirection(0,0);
     updateText("Listening");
     callBack(null, Text(
                     "Searching for the sound",
@@ -32,8 +33,8 @@ List<PhaseFunction> flowerPhases = [
     
 
   },
-  (List<GlobalKey<PetalState>> petals, void Function(String) updateText, void Function(Widget?, Widget?)callBack) async {
-
+  (List<GlobalKey<PetalState>> petals, void Function(String) updateText,void Function(int start, int end) setDirection, void Function(Widget?, Widget?)callBack) async {
+    setDirection(0,40);
     callBack(null, Text(
                     "Turn around to find the location of the sound",
                     textAlign: TextAlign.center,
@@ -56,6 +57,7 @@ List<PhaseFunction> flowerPhases = [
     ) );
 
     updateText("Complete");
+    setDirection(10,15); // TODO: change to actual function
   },
 ];
 
