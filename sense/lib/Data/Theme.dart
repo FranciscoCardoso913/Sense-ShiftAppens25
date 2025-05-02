@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
-const Color primary = Color(0x264653);
-const Color secondary= Color(0x17C3B2);
-const Color ternary  = Color(0xFFCB77);
-const Color quaternary = Color(0xFEF9EF);
-const Color fith=Color(0xFE6D73);
-const Color error=Color(0xD44148);
-const Color textcolour= Color(0xff000000);
-const Color iconcolor=Color(0xABABAB);
+const Color primary = Color(0xff264653);
+const Color secondary= Color(0xff17C3B2);
+const Color ternary  = Color(0xffFFCB77);
+const Color quaternary = Color(0xffFEF9EF);
+const Color fith=Color(0xffFE6D73);
+const Color error=Color(0xffD44148);
+const Color textcolour= primary;
+const Color iconcolor=Color(0xffABABAB);
 
 const textTheme = TextTheme(
+  
   displayLarge: TextStyle(
     fontSize: 40,
     fontWeight: FontWeight.w400,
@@ -18,7 +19,7 @@ const textTheme = TextTheme(
   displayMedium: TextStyle(
     fontSize: 40,
     fontWeight: FontWeight.w400,
-    color: quaternary,
+    color: textcolour,
   ),
   displaySmall: TextStyle(
     fontSize: 28,
@@ -26,14 +27,15 @@ const textTheme = TextTheme(
     color:textcolour,
   ),
   bodyLarge: TextStyle(
-    fontSize: 28,
-    fontWeight: FontWeight.w400,
-    color: quaternary,
+    fontFamily: 'Poppins-SemiBoldr',
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+    color: textcolour,
   ),
   bodyMedium: TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
-    color: quaternary,
+    color: textcolour,
   ),
   bodySmall: TextStyle(
     fontSize: 12,
@@ -58,16 +60,17 @@ const textTheme = TextTheme(
 );
 
 final ThemeData lightTheme = ThemeData(
+  fontFamily: 'Poppins',
   useMaterial3: true,
   textTheme: textTheme,
   colorScheme: ColorScheme.fromSeed(
     seedColor: primary,
     primary: primary,
-    onPrimary: ternary,
+    onPrimary: quaternary,
     secondary: secondary,
-    onSecondary: textColour,
-    surface: ternary,
-    onSurface: textColour,
+    onSecondary: textcolour,
+    surface: quaternary,
+    onSurface: textcolour,
     error: error,
     onError: ternary,
     tertiary: fith,
@@ -77,7 +80,7 @@ final ThemeData lightTheme = ThemeData(
   primaryColor: primary,
   cardTheme: CardTheme(
     margin: EdgeInsets.all(4),
-    color: ternary,
+    color: quaternary,
   ),
   dividerColor: textcolour.withValues(alpha:0.4), 
   hintColor: textcolour.withValues(alpha: 0.6),
@@ -85,5 +88,6 @@ final ThemeData lightTheme = ThemeData(
   secondaryHeaderColor: quaternary,
   focusColor: fith,
   shadowColor: textcolour.withValues(alpha: .3),
-  iconTheme: IconThemeData(color: iconcolor),
+  iconTheme: IconThemeData(color: primary),
+  primaryTextTheme: textTheme
 );
