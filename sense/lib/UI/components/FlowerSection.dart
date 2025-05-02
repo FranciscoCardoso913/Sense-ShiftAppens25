@@ -3,18 +3,15 @@ import 'Flower.dart';
 import '../../Data/Theme.dart';
 import '../../logic/FlowerLogic.dart';
 class FlowerSection extends StatefulWidget {
+  final Future<String> Function() onGetResult; // Funcção que vai detetar o som
 
-  const FlowerSection({
-    super.key
-  });
+  const FlowerSection({super.key, required this.onGetResult});
 
   @override
   State<FlowerSection> createState() => FlowerSectionState();
 }
 
 class FlowerSectionState extends State<FlowerSection> {
-
-
   int phase = 0;
   Widget top = Text("");
   Widget bottom = Text("");
@@ -29,6 +26,7 @@ class FlowerSectionState extends State<FlowerSection> {
       bottom = widget;
     });
     }
+
     void callBack(Widget? top, Widget? bottom){
         if(top!=null) setTop(top);
         if(bottom!=null) setBottom(bottom);
@@ -36,7 +34,7 @@ class FlowerSectionState extends State<FlowerSection> {
   
   @override
   Widget build(BuildContext context) {
-    return   Expanded(
+    return  Expanded(
               flex: 8,
               child: Column(
                 children: [
@@ -51,7 +49,7 @@ class FlowerSectionState extends State<FlowerSection> {
               flex: 5,
               child: Align(
                 alignment: Alignment.center,
-                child: FlowerButton(phases: flowerPhases, callBack: callBack),
+                child: FlowerButton(phases: flowerPhases, callBack: callBack, onGetResult: widget.onGetResult,),
               ),
             ),
             Expanded(

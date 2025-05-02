@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sense/UI/MainPage.dart';
+import 'package:sense/UI/SoundDetectionTestPage.dart';
 import 'Data/Theme.dart'; // make sure the path matches
 
 void main() {
