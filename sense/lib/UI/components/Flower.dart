@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:pulsator/pulsator.dart';
 import 'package:sense/UI/components/Indicators.dart';
@@ -7,6 +9,7 @@ import 'Petal.dart';
 import '../../logic/FlowerLogic.dart';
 import '../../logic/rotation_tracker.dart';
 import 'dart:async';
+import '../../logic/SoundIntensityDetector.dart';
 
 class FlowerButton extends StatefulWidget {
   final List<PhaseFunction> phases;
@@ -51,7 +54,7 @@ class _FlowerButtonState extends State<FlowerButton> {
       setState(() {
         currentAngle = angle;
       });
-      print('Current Angle: $angle°');
+      //print('Current Angle: $angle°');
     });
   }
 
@@ -166,7 +169,24 @@ class _FlowerButtonState extends State<FlowerButton> {
         ),
       );
 
-
+      // Todo
+      final detector = SoundIntensityDetector();
+      await detector.startMonitoring();
+      sleep( Duration(seconds: 1));
+      // double level = detector.currentLevel;  // 0-1 value
+      Timer.periodic(Duration(milliseconds: 500), (timer) {
+       double level = detector.currentLevel;  
+        print("intesity");
+      print(level);
+      //print('Current Angle: $angle°');
+    });
+      //await detector.stopMonitoring();
+  
+      // current angle is '0'
+      // rotate every x seconds detect sound intensety
+      // associate the sound with a petal
+      // color the petal
+      // when all petals are colores calculate the most intense 
       widget.callBack(
         null,
         Column(
