@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:pulsator/pulsator.dart';
 import 'package:sense/UI/components/Indicators.dart';
@@ -5,6 +7,9 @@ import 'dart:math';
 import '../../Data/Theme.dart';
 import 'Petal.dart';
 import '../../logic/FlowerLogic.dart';
+import '../../logic/rotation_tracker.dart';
+import 'dart:async';
+import '../../logic/SoundIntensityDetector.dart';
 
 class FlowerButton extends StatefulWidget {
   final List<PhaseFunction> phases;
@@ -23,6 +28,9 @@ class FlowerButton extends StatefulWidget {
 }
 
 class _FlowerButtonState extends State<FlowerButton> {
+  final tracker = RotationTracker();
+  double currentAngle = 0.0;
+
   final int petalCount = 12;
   int phase = 0;
   String buttonText = 'Start';
@@ -32,11 +40,21 @@ class _FlowerButtonState extends State<FlowerButton> {
   final GlobalKey<IndicatorsState> indicator = GlobalKey<IndicatorsState>();
   final List<Color> colors = [fith, primary, ternary, secondary];
   late final List<GlobalKey<PetalState>> petalKeys;
-  
+
   @override
   void initState() {
     super.initState();
     petalKeys = List.generate(petalCount, (_) => GlobalKey<PetalState>());
+    tracker.initialize();
+
+    // Optional: Check every 500ms and print angle
+    Timer.periodic(Duration(milliseconds: 500), (timer) {
+      final angle = tracker.getCurrentAngle();
+      setState(() {
+        currentAngle = angle;
+      });
+      //print('Current Angle: $angle°');
+    });
   }
 
   Petal buildPetal(int i) {
@@ -47,46 +65,85 @@ class _FlowerButtonState extends State<FlowerButton> {
     );
   }
 
-  void updateInterval(int start, int end){
+  void updateInterval(int start, int end) {
     indicator.currentState?.updateInterval(start, end);
   }
-
 
   Future<void> _handlePress() async {
     setState(() {
       if (phase == 1) _indicators = true;
-      _shouldPulsate = true;
-      _pulsatorKey++;
+      if (phase == 0) {
+        _shouldPulsate = true;
+        _pulsatorKey++;
+      }
     });
 
     // Start the sound detection and animation in parallel
-    final soundDetectionFuture = widget.onGetResult();
-    final animationFuture = widget.phases[phase % widget.phases.length](
-      petalKeys,
-      (text) {
-        setState(() {
-          buttonText = text;
-        });
-      },
-      updateInterval,
-      widget.callBack,
-    );
-
-    // Wait for sound detection to complete while animation runs
-    final result = await soundDetectionFuture;
-
-    // Update the top widget with the detected class
-    widget.callBack(
-      Text(
-        "Detected: $result",
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-      ),
-      null, // Leave bottom unchanged
-    );
-
-    // Ensure pulsate stops after animation duration
     if (phase == 0) {
-      Future.delayed(const Duration(seconds: 9), () {
+      final soundDetectionFuture = widget.onGetResult();
+      final animationFuture = widget.phases[phase % widget.phases.length](
+        petalKeys,
+        (text) {
+          setState(() {
+            buttonText = text;
+          });
+        },
+        updateInterval,
+        widget.callBack,
+      );
+
+      // Wait for sound detection to complete while animation runs
+      final result = await soundDetectionFuture;
+
+      // Update the top widget with the detected class
+      widget.callBack(
+        Material(
+          elevation: 4.0,
+          borderRadius: BorderRadius.circular(35),
+          child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Text(
+              result,
+              textAlign: TextAlign.center,
+              softWrap: true,
+              style: textTheme.bodyLarge,
+            ),
+          ),
+        ),
+        Column(
+          children: [
+            Image.asset('assets/match.png'),
+            SizedBox(height: 25),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  phase = 0;
+                });
+                _handlePress();
+              },
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all(ternary),
+                elevation: WidgetStateProperty.all(
+                  4,
+                ), // Optional: Customize shadow depth
+                shape: WidgetStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      15,
+                    ), // Optional: Rounded corners
+                  ),
+                ),
+              ),
+              child: Text(
+                "Listen Again",
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ),
+          ],
+        ), // Leave bottom unchanged
+      );
+
+      Future.delayed(const Duration(seconds: 1), () {
         if (_shouldPulsate) {
           setState(() {
             _shouldPulsate = false;
@@ -94,10 +151,150 @@ class _FlowerButtonState extends State<FlowerButton> {
           });
         }
       });
+
+      // Wait for the animation to complete (if needed)
+      await animationFuture;
     }
 
-    // Wait for the animation to complete (if needed)
-    await animationFuture;
+    if (phase == 1) {
+      const int numPetals = 12;
+      for(int i =0; i< numPetals; i++){
+        print("ha?");
+        petalKeys[i].currentState?.toggleActive();
+      }
+      updateInterval(0, 40);
+      widget.callBack(
+        null,
+        Text(
+          "Turn around to find the location of the sound",
+          textAlign: TextAlign.center,
+          softWrap: true,
+          style: textTheme.bodyLarge,
+        ),
+      );
+
+      // Todo
+      
+      final double startAngle = currentAngle;
+      const double anglePerPetal = 360 / numPetals; // 30 degrees per petal
+      Map<int, double> petalIntensities = {};
+     
+
+      int getPetalIndex(double angle) {
+        return (angle ~/ anglePerPetal) % numPetals;
+      }
+
+      final detector = SoundIntensityDetector();
+      await detector.startMonitoring();
+      sleep(Duration(seconds: 1));
+      // double level = detector.currentLevel;  // 0-1 value
+      Timer.periodic(Duration(milliseconds: 500), (timer) {
+        double level = detector.currentLevel;
+        double angle = currentAngle + 180;
+
+        int index = getPetalIndex(angle);
+        if (!petalIntensities.containsKey(index)) {
+          petalIntensities[index] = level;
+          print("Petal $index recorded with intensity $level");
+          petalKeys[index].currentState?.toggleActive();
+        }
+
+        if (petalIntensities.length == numPetals) {
+          timer.cancel();
+          print("All petals filled!");
+
+          // Process the result
+          int maxIndex =
+              petalIntensities.entries
+                  .reduce((a, b) => a.value > b.value ? a : b)
+                  .key;
+          print("Most intense petal: $maxIndex");
+
+                widget.callBack(
+        null,
+        Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  phase = 0;
+                });
+                _handlePress();
+              },
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all(ternary),
+                elevation: WidgetStateProperty.all(
+                  4,
+                ), // Optional: Customize shadow depth
+                shape: WidgetStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      15,
+                    ), // Optional: Rounded corners
+                  ),
+                ),
+              ),
+              child: Text(
+                "Listen Again",
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ),
+            SizedBox(height: 25),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  phase = 1;
+                });
+                _handlePress();
+              },
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all(primary),
+
+                elevation: WidgetStateProperty.all(
+                  4,
+                ), // Optional: Customize shadow depth
+                shape: WidgetStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      15,
+                    ), // Optional: Rounded corners
+                  ),
+                ),
+              ),
+              child: Text(
+                "Scan Again",
+
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: ternary, // Change to your desired text color
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+
+    setState(() {
+      buttonText = "complete";
+    });
+    updateInterval((maxIndex*anglePerPetal*40)~/360,((maxIndex*anglePerPetal +anglePerPetal )*40)~/360); // TODO: change to actual function
+
+        }
+      });
+
+      //await detector.stopMonitoring();
+
+      // current angle is '0'
+      
+
+      // rotate every x seconds detect sound intensety
+      // associate the sound with a petal
+      // color the petal
+      // when all petals are colores calculate the most intense
+
+
+    
+      // updateInterval(10, 15); // TODO: change to actual function
+    }
 
     setState(() {
       phase++;
@@ -114,7 +311,6 @@ class _FlowerButtonState extends State<FlowerButton> {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            
             Indicators(key: indicator),
             // Petals
             for (int i = 0; i < petalCount; i++)
@@ -127,7 +323,7 @@ class _FlowerButtonState extends State<FlowerButton> {
               ),
 
             // Pulsating effect, make sure it only shows for the first phase or any condition you want
-            if (_shouldPulsate && phase ==0)
+            if (_shouldPulsate && phase == 0)
               Pulsator(
                 key: ValueKey<int>(_pulsatorKey),
                 count: 6, // Increased count to show more pulses
@@ -157,7 +353,6 @@ class _FlowerButtonState extends State<FlowerButton> {
               ),
               child: Text(buttonText),
             ),
-            
           ],
         ),
       ),

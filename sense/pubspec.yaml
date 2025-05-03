@@ -36,6 +36,9 @@ dependencies:
     path: plugins/flutter_tflite_audio
   cupertino_icons: ^1.0.8
   pulsator: ^1.0.0
+  flutter_compass: ^0.8.1
+  path_provider: ^2.1.2
+
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +80,7 @@ flutter:
     - assets/help_modal/6th_row.png
     - assets/models/sound_classifier.tflite
     - assets/models/labels.txt
+    - assets/match.png
 
   fonts:
     - family: Poppins
