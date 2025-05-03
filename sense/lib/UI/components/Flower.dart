@@ -31,7 +31,6 @@ class _FlowerButtonState extends State<FlowerButton> {
   final tracker = RotationTracker();
   double currentAngle = 0.0;
 
-
   final int petalCount = 12;
   int phase = 0;
   String buttonText = 'Start';
@@ -73,9 +72,9 @@ class _FlowerButtonState extends State<FlowerButton> {
   Future<void> _handlePress() async {
     setState(() {
       if (phase == 1) _indicators = true;
-      if(phase == 0){
+      if (phase == 0) {
         _shouldPulsate = true;
-      _pulsatorKey++;
+        _pulsatorKey++;
       }
     });
 
@@ -158,6 +157,11 @@ class _FlowerButtonState extends State<FlowerButton> {
     }
 
     if (phase == 1) {
+      const int numPetals = 12;
+      for(int i =0; i< numPetals; i++){
+        print("ha?");
+        petalKeys[i].currentState?.toggleActive();
+      }
       updateInterval(0, 40);
       widget.callBack(
         null,
@@ -170,24 +174,43 @@ class _FlowerButtonState extends State<FlowerButton> {
       );
 
       // Todo
+      
+      final double startAngle = currentAngle;
+      const double anglePerPetal = 360 / numPetals; // 30 degrees per petal
+      Map<int, double> petalIntensities = {};
+     
+
+      int getPetalIndex(double angle) {
+        return (angle ~/ anglePerPetal) % numPetals;
+      }
+
       final detector = SoundIntensityDetector();
       await detector.startMonitoring();
-      sleep( Duration(seconds: 1));
+      sleep(Duration(seconds: 1));
       // double level = detector.currentLevel;  // 0-1 value
       Timer.periodic(Duration(milliseconds: 500), (timer) {
-       double level = detector.currentLevel;  
-        print("intesity");
-      print(level);
-      //print('Current Angle: $angle°');
-    });
-      //await detector.stopMonitoring();
-  
-      // current angle is '0'
-      // rotate every x seconds detect sound intensety
-      // associate the sound with a petal
-      // color the petal
-      // when all petals are colores calculate the most intense 
-      widget.callBack(
+        double level = detector.currentLevel;
+        double angle = currentAngle + 180;
+
+        int index = getPetalIndex(angle);
+        if (!petalIntensities.containsKey(index)) {
+          petalIntensities[index] = level;
+          print("Petal $index recorded with intensity $level");
+          petalKeys[index].currentState?.toggleActive();
+        }
+
+        if (petalIntensities.length == numPetals) {
+          timer.cancel();
+          print("All petals filled!");
+
+          // Process the result
+          int maxIndex =
+              petalIntensities.entries
+                  .reduce((a, b) => a.value > b.value ? a : b)
+                  .key;
+          print("Most intense petal: $maxIndex");
+
+                widget.callBack(
         null,
         Column(
           children: [
@@ -250,10 +273,27 @@ class _FlowerButtonState extends State<FlowerButton> {
         ),
       );
 
-      setState(() {
-        buttonText = "Complete";
+    setState(() {
+      buttonText = "complete";
+    });
+    updateInterval((maxIndex*anglePerPetal*40)~/360,((maxIndex*anglePerPetal +anglePerPetal )*40)~/360); // TODO: change to actual function
+
+        }
       });
-      updateInterval(10, 15); // TODO: change to actual function
+
+      //await detector.stopMonitoring();
+
+      // current angle is '0'
+      
+
+      // rotate every x seconds detect sound intensety
+      // associate the sound with a petal
+      // color the petal
+      // when all petals are colores calculate the most intense
+
+
+    
+      // updateInterval(10, 15); // TODO: change to actual function
     }
 
     setState(() {

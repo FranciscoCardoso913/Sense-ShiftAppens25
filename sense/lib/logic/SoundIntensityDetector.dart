@@ -58,7 +58,7 @@ class SoundIntensityDetector {
   // Set up progress listener
   _progressSubscription = _recorder.onProgress?.listen(
     (RecordingDisposition disposition) {
-      print("Progress update - Decibels: ${disposition.decibels}");
+     // print("Progress update - Decibels: ${disposition.decibels}");
       _currentLevel = disposition.decibels ?? 0;
     },
     onError: (error) {

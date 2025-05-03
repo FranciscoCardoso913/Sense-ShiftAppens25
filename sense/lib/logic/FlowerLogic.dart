@@ -54,8 +54,7 @@ List<PhaseFunction> flowerPhases = [
       style: textTheme.bodyLarge,
     ) );
 
-    updateText("Complete");
-    setDirection(10,15); // TODO: change to actual function
+  
   },
 ];
 
