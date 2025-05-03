@@ -95,6 +95,10 @@ class _FlowerButtonState extends State<FlowerButton> {
       // Wait for sound detection to complete while animation runs
       final result = await soundDetectionFuture;
 
+      final match = RegExp(r'^\s*\d*\.?\d+\s+(.*)$').firstMatch(result);
+      final sound = match != null ? match.group(1) : '';
+
+
       // Update the top widget with the detected class
       widget.callBack(
         Material(
@@ -103,7 +107,7 @@ class _FlowerButtonState extends State<FlowerButton> {
           child: Padding(
             padding: EdgeInsets.all(10.0),
             child: Text(
-              result,
+              sound!,
               textAlign: TextAlign.center,
               softWrap: true,
               style: textTheme.bodyLarge,
